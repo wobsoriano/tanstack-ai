@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  abbrev: ^3.0.0
+
 importers:
 
   .:
@@ -3094,10 +3097,6 @@ packages:
   '@zkochan/js-yaml@0.0.7':
     resolution: {integrity: sha512-nrUSn7hzt7J6JWgWGz78ZYI8wj+gdIJdk0Ynjpp8l+trkn58Uqsf6RYrYkEK+3X18EX+TNdtJI0WxAtc+L84SQ==}
     hasBin: true
-
-  abbrev@2.0.0:
-    resolution: {integrity: sha512-6/mh1E2u2YgEsCHdY0Yx5oW+61gZU+1vXaoiHHrpKeuRNNgFvS+/jrwHiQhB5apAf5oB7UB7E19ol2R2LKH8hQ==}
-    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
   abbrev@3.0.1:
     resolution: {integrity: sha512-AO2ac6pjRB3SJmGJo+v5/aK6Omggp6fsLrs6wN9bd35ulu4cCwaAU9+7ZhXjeqHVkaHThLuzH0nZr0YpCDhygg==}
@@ -9251,8 +9250,6 @@ snapshots:
     dependencies:
       argparse: 2.0.1
 
-  abbrev@2.0.0: {}
-
   abbrev@3.0.1: {}
 
   abort-controller@3.0.0:
@@ -11633,7 +11630,7 @@ snapshots:
 
   nopt@7.2.1:
     dependencies:
-      abbrev: 2.0.0
+      abbrev: 3.0.1
 
   nopt@8.1.0:
     dependencies:
