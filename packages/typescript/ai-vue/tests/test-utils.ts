@@ -2,6 +2,7 @@ import { defineComponent } from 'vue'
 import { mount } from '@vue/test-utils'
 import { useChat } from '../src/use-chat'
 import type { UseChatOptions } from '../src/types'
+import type { UIMessage } from '@tanstack/ai-client'
 
 // Re-export test utilities from ai-client
 export {
@@ -37,7 +38,8 @@ export function renderUseChat(options?: UseChatOptions) {
   const createResult = () => {
     const hook = wrapper.vm
     return {
-      messages: hook.messages,
+      // Asserting to fix "cannot be named without a reference" error
+      messages: hook.messages as Array<UIMessage>,
       isLoading: hook.isLoading,
       error: hook.error,
       sendMessage: hook.sendMessage,
