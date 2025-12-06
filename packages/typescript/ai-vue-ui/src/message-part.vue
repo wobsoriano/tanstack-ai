@@ -10,7 +10,7 @@ interface MessagePartProps {
 
 const props = defineProps<MessagePartProps>()
 
-defineSlots<{
+type MessagePartSlots = {
   text?: (props: { content: string }) => any
   thinking?: (props: { content: string; isComplete?: boolean }) => any
   'tool-default'?: (props: ToolCallRenderProps) => any
@@ -19,8 +19,9 @@ defineSlots<{
     content: string
     state: string
   }) => any
-  // Dynamic slots for named tools will be accessed via $slots[`tool-${toolName}`]
-}>()
+} & Partial<Record<`tool-${string}`, (props: ToolCallRenderProps) => any>>
+
+defineSlots<MessagePartSlots>()
 
 const toolProps = computed<ToolCallRenderProps | null>(() => {
   if (props.part.type === 'tool-call') {

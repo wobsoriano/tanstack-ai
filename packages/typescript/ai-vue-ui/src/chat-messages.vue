@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { useTemplateRef, watch } from 'vue'
 import { useChatContext } from './use-chat-context'
 import ChatMessage from './chat-message.vue'
 import type { ChatMessagesProps } from './types'
@@ -16,7 +16,7 @@ defineSlots<{
 }>()
 
 const { messages, isLoading, error, reload } = useChatContext()
-const containerRef = ref<HTMLDivElement | null>(null)
+const containerRef = useTemplateRef('containerRef')
 
 // Auto-scroll to bottom on new messages
 watch(
@@ -58,7 +58,7 @@ watch(
           :key="message.id"
           :data-message-id="message.id"
         >
-          <slot v-if="$slots.default" :message :index="index" />
+          <slot v-if="$slots.default" :message :index />
           <ChatMessage v-else :message />
         </div>
       </div>

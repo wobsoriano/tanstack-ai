@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { computed, h } from 'vue'
-import type { UIMessage } from '@tanstack/ai-vue'
+import { computed } from 'vue'
 import MessagePart from './message-part.vue'
 import type { ChatMessageProps } from './types'
 
 const props = defineProps<ChatMessageProps>()
 
-const slots = defineSlots<{
+type ChatMessageSlots = {
   text?: (props: { content: string }) => any
   thinking?: (props: { content: string; isComplete?: boolean }) => any
   'tool-default'?: (props: any) => any
@@ -15,9 +14,9 @@ const slots = defineSlots<{
     content: string
     state: string
   }) => any
-  // Dynamic slots for named tools: tool-{toolName}
-  [key: `tool-${string}`]: (props: any) => any
-}>()
+} & Partial<Record<`tool-${string}`, (props: any) => any>>
+
+const slots = defineSlots<ChatMessageSlots>()
 
 // Combine classes based on role
 const roleClass = computed(() =>
@@ -33,36 +32,8 @@ const combinedClass = computed(() =>
 // Check if thinking is complete (if there's a text part after this thinking part)
 const isThinkingComplete = (partIndex: number) => {
   const part = props.message.parts[partIndex]
-  if (part.type !== 'thinking') return false
+  if (!part || part.type !== 'thinking') return false
   return props.message.parts.slice(partIndex + 1).some((p) => p.type === 'text')
-}
-
-// Helper to create forwarded slots for MessagePart
-const createMessagePartSlots = (part: any) => {
-  const forwardedSlots: Record<string, any> = {}
-
-  if (slots.text) {
-    forwardedSlots.text = slots.text
-  }
-  if (slots.thinking) {
-    forwardedSlots.thinking = slots.thinking
-  }
-  if (slots['tool-default']) {
-    forwardedSlots['tool-default'] = slots['tool-default']
-  }
-  if (slots['tool-result']) {
-    forwardedSlots['tool-result'] = slots['tool-result']
-  }
-
-  // Forward dynamic tool slots if they exist
-  if (part.type === 'tool-call') {
-    const toolSlotName = `tool-${part.name}` as `tool-${string}`
-    if (slots[toolSlotName]) {
-      forwardedSlots[toolSlotName] = slots[toolSlotName]
-    }
-  }
-
-  return forwardedSlots
 }
 </script>
 
