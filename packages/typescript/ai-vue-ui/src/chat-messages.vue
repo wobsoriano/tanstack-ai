@@ -32,12 +32,7 @@ watch(
 
 <template>
   <!-- Error state -->
-  <slot
-    v-if="error && $slots.errorState"
-    name="errorState"
-    :error
-    :reload
-  />
+  <slot v-if="error && $slots.errorState" name="errorState" :error :reload />
   <template v-else>
     <!-- Loading state (only show if no messages yet) -->
     <slot
@@ -46,7 +41,10 @@ watch(
     />
     <template v-else>
       <!-- Empty state -->
-      <slot v-if="messages.length === 0 && $slots.emptyState" name="emptyState" />
+      <slot
+        v-if="messages.length === 0 && $slots.emptyState"
+        name="emptyState"
+      />
       <!-- Messages -->
       <div
         v-else
@@ -60,11 +58,7 @@ watch(
           :key="message.id"
           :data-message-id="message.id"
         >
-          <slot
-            v-if="$slots.default"
-            :message
-            :index="index"
-          />
+          <slot v-if="$slots.default" :message :index="index" />
           <ChatMessage v-else :message />
         </div>
       </div>

@@ -40,11 +40,7 @@ const toolProps = computed<ToolCallRenderProps | null>(() => {
 <template>
   <!-- Text part -->
   <div v-if="part.type === 'text'">
-    <slot
-      v-if="$slots.text"
-      name="text"
-      :content="part.content"
-    />
+    <slot v-if="$slots.text" name="text" :content="part.content" />
     <div v-else data-part-type="text" data-part-content>
       {{ part.content }}
     </div>

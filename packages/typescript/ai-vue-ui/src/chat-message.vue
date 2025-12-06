@@ -22,8 +22,8 @@ const slots = defineSlots<{
 // Combine classes based on role
 const roleClass = computed(() =>
   props.message.role === 'user'
-    ? props.userClass ?? ''
-    : props.assistantClass ?? '',
+    ? (props.userClass ?? '')
+    : (props.assistantClass ?? ''),
 )
 
 const combinedClass = computed(() =>
@@ -34,15 +34,13 @@ const combinedClass = computed(() =>
 const isThinkingComplete = (partIndex: number) => {
   const part = props.message.parts[partIndex]
   if (part.type !== 'thinking') return false
-  return props.message.parts
-    .slice(partIndex + 1)
-    .some((p) => p.type === 'text')
+  return props.message.parts.slice(partIndex + 1).some((p) => p.type === 'text')
 }
 
 // Helper to create forwarded slots for MessagePart
 const createMessagePartSlots = (part: any) => {
   const forwardedSlots: Record<string, any> = {}
-  
+
   if (slots.text) {
     forwardedSlots.text = slots.text
   }
@@ -55,7 +53,7 @@ const createMessagePartSlots = (part: any) => {
   if (slots['tool-result']) {
     forwardedSlots['tool-result'] = slots['tool-result']
   }
-  
+
   // Forward dynamic tool slots if they exist
   if (part.type === 'tool-call') {
     const toolSlotName = `tool-${part.name}` as `tool-${string}`
@@ -63,7 +61,7 @@ const createMessagePartSlots = (part: any) => {
       forwardedSlots[toolSlotName] = slots[toolSlotName]
     }
   }
-  
+
   return forwardedSlots
 }
 </script>

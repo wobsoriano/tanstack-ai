@@ -59,12 +59,7 @@ const slotProps = computed<ToolApprovalRenderProps>(() => ({
   </div>
 
   <!-- Default approval UI -->
-  <div
-    v-else
-    :class
-    data-tool-approval
-    data-approval-status="pending"
-  >
+  <div v-else :class data-tool-approval data-approval-status="pending">
     <div data-approval-header>
       <strong>{{ toolName }}</strong> requires approval
     </div>
@@ -72,12 +67,8 @@ const slotProps = computed<ToolApprovalRenderProps>(() => ({
       <pre>{{ JSON.stringify(input, null, 2) }}</pre>
     </div>
     <div data-approval-actions>
-      <button @click="handleApprove" data-approval-approve>
-        Approve
-      </button>
-      <button @click="handleDeny" data-approval-deny>
-        Deny
-      </button>
+      <button @click="handleApprove" data-approval-approve>Approve</button>
+      <button @click="handleDeny" data-approval-deny>Deny</button>
     </div>
   </div>
 </template>

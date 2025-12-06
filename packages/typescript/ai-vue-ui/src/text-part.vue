@@ -12,9 +12,9 @@ const props = defineProps<TextPartProps>()
 // Combine classes based on role
 const roleClass = computed(() =>
   props.role === 'user'
-    ? props.userClass ?? ''
+    ? (props.userClass ?? '')
     : props.role === 'assistant'
-      ? props.assistantClass ?? ''
+      ? (props.assistantClass ?? '')
       : '',
 )
 
