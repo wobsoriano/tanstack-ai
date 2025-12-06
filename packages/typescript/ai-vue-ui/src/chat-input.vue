@@ -18,7 +18,7 @@ defineSlots<{
 }>()
 
 // v-model support - defaults to empty string if not provided
-const modelValue = defineModel<string>({ default: '' })
+const modelValue = defineModel({ default: '' })
 
 const { sendMessage, isLoading } = useChatContext()
 
